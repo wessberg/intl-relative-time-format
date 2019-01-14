@@ -94,6 +94,8 @@ Remember, if you're also depending on a polyfilled version of `Intl.NumberFormat
 
 The following examples are taken [directly from the original proposal](https://github.com/tc39/proposal-intl-relative-time)
 
+### Intl.RelativeTimeFormat.prototype.format
+
 ```typescript
 // Create a relative time formatter in your locale
 // with default values explicitly passed in.
@@ -125,6 +127,35 @@ rtf.format(-1, "day");
 rtf.format(1, "day");
 // > "tomorrow"
 ```
+
+### Intl.RelativeTimeFormat.prototype.formatToParts
+
+````typescript
+const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+
+// Format relative time using the day unit.
+rtf.formatToParts(-1, "day");
+// > [{ type: "literal", value: "yesterday"}]
+
+rtf.formatToParts(100, "day");
+// > [{ type: "literal", value: "in " }, { type: "integer", value: "100", unit: "day" }, { type: "literal", value: " days" }]
+````
+
+### Intl.RelativeTimeFormat.prototype.resolvedOptions
+
+````typescript
+const rtf = new Intl.RelativeTimeFormat("en", {numeric: "always", style: "narrow"});
+
+rtf.resolvedOptions();
+// > [{ locale: "en", numberingSystem: "latn", numeric: "always", style: "narrow"}]
+````
+
+### Intl.RelativeTimeFormat.supportedLocalesOf
+
+````typescript
+Intl.RelativeTimeFormat.supportedLocalesOf(["foo", "bar", "en-US"]);
+// > ["en-US"]
+````
 
 ## Dependencies & Browser support
 
