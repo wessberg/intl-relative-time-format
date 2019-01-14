@@ -1,6 +1,6 @@
 {
   "name": "intl-relative-time-format",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A fully spec-compliant polyfill for 'Intl.RelativeTimeFormat'",
   "repository": {
     "type": "git",
