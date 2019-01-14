@@ -27,7 +27,7 @@
     "test": "NODE_ENV=TEST ava --fail-fast",
     "posttest": "npm run clean:compiled",
     "build_data": "cd scripts/build-data && tsc && node compiled/scripts/build-data/build-data.js && rm -rf compiled",
-    "publish:before": "NODE_ENV=production npm run lint && && npm run build_data && npm run test && NODE_ENV=production npm run prepare && npm run generate:all && git add . && (git commit -am \"Bumped version\" && git push) || true",
+    "publish:before": "NODE_ENV=production npm run lint && npm run build_data && npm run test && NODE_ENV=production npm run prepare && npm run generate:all && git add . && (git commit -am \"Bumped version\" && git push) || true",
     "publish:after": "git push && npm publish",
     "publish:patch": "npm run publish:before && npm version patch && npm run publish:after",
     "publish:minor": "npm run publish:before && npm version minor && npm run publish:after",
