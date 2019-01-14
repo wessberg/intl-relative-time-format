@@ -130,8 +130,8 @@ rtf.format(1, "day");
 
 ### Intl.RelativeTimeFormat.prototype.formatToParts
 
-````typescript
-const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+```typescript
+const rtf = new Intl.RelativeTimeFormat("en", {numeric: "auto"});
 
 // Format relative time using the day unit.
 rtf.formatToParts(-1, "day");
@@ -139,23 +139,23 @@ rtf.formatToParts(-1, "day");
 
 rtf.formatToParts(100, "day");
 // > [{ type: "literal", value: "in " }, { type: "integer", value: "100", unit: "day" }, { type: "literal", value: " days" }]
-````
+```
 
 ### Intl.RelativeTimeFormat.prototype.resolvedOptions
 
-````typescript
+```typescript
 const rtf = new Intl.RelativeTimeFormat("en", {numeric: "always", style: "narrow"});
 
 rtf.resolvedOptions();
 // > [{ locale: "en", numberingSystem: "latn", numeric: "always", style: "narrow"}]
-````
+```
 
 ### Intl.RelativeTimeFormat.supportedLocalesOf
 
-````typescript
+```typescript
 Intl.RelativeTimeFormat.supportedLocalesOf(["foo", "bar", "en-US"]);
 // > ["en-US"]
-````
+```
 
 ## Dependencies & Browser support
 
