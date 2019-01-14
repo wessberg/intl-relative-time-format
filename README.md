@@ -39,14 +39,14 @@ $ yarn add intl-relative-time-format
 ## Applying the polyfill
 
 The polyfill will check for the existence of `Intl.RelativeTimeFormat` and will _only_ be applied if the runtime doesn't already support it.
- 
+
 To include it, add this somewhere:
 
 ```typescript
 import "intl-relative-time-format";
 
 // Or with commonjs:
-require("intl-relative-time-format")
+require("intl-relative-time-format");
 ```
 
 However, it is strongly suggested that you only include the polyfill for runtimes that don't already support `Intl.RelativeTimeFormat`.
@@ -55,7 +55,7 @@ One way to do so is with an async import:
 ```typescript
 if (!("RelativeTimeFormat" in Intl)) {
   await import("intl-relative-time-format");
-  
+
   // or with commonjs:
   require("intl-relative-time-format");
 }
@@ -70,23 +70,23 @@ To load data, you can import it via the `/locale-data` subfolder that comes with
 
 With ES modules:
 
-````typescript
+```typescript
 // Load the polyfill
 import "intl-relative-time-format";
 
 // Load data for the 'en' locale
-import "intl-relative-time-format/locale-data/en"
-````
+import "intl-relative-time-format/locale-data/en";
+```
 
 And naturally, it also works with commonjs:
 
-````typescript
+```typescript
 // Load the polyfill
 require("intl-relative-time-format");
 
 // Load data for the 'en' locale
-require("intl-relative-time-format/locale-data/en")
-````
+require("intl-relative-time-format/locale-data/en");
+```
 
 Remember, if you're also depending on a polyfilled version of `Intl.NumberFormat` and/or `Intl.PluralRules`, you will need to import those polyfills beforehand.
 
@@ -98,11 +98,10 @@ The following examples are taken [directly from the original proposal](https://g
 // Create a relative time formatter in your locale
 // with default values explicitly passed in.
 const rtf = new Intl.RelativeTimeFormat("en", {
-    localeMatcher: "best fit", // other values: "lookup"
-    numeric: "always", // other values: "auto"
-    style: "long", // other values: "short" or "narrow"
+  localeMatcher: "best fit", // other values: "lookup"
+  numeric: "always", // other values: "auto"
+  style: "long" // other values: "short" or "narrow"
 });
-
 
 // Format relative time using negative value (-1).
 rtf.format(-1, "day");
@@ -116,7 +115,7 @@ rtf.format(1, "day");
 ```typescript
 // Create a relative time formatter in your locale
 // with numeric: "auto" option value passed in.
-const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+const rtf = new Intl.RelativeTimeFormat("en", {numeric: "auto"});
 
 // Format relative time using negative value (-1).
 rtf.format(-1, "day");
@@ -135,7 +134,7 @@ This polyfill is distributed in ES3-compatible syntax, but is using some APIs an
 - `Object.prototype.hasOwnProperty`
 - `Object.create`
 - `Object.is`
-. `Number.prototype.toLocaleString`
+  . `Number.prototype.toLocaleString`
 - `String.prototype.indexOf`
 - `String.prototype.includes`
 - `String.prototype.lastIndexOf`
