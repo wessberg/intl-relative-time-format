@@ -128,16 +128,13 @@ rtf.format(1, "day");
 
 ## Dependencies & Browser support
 
-This polyfill is distributed in ES3-compatible syntax, but is using some APIs and language features which must be available:
+This polyfill is distributed in ES3-compatible syntax, but is using some additional APIs and language features which must be available:
 
 - `Array.prototype.includes`
 - `Object.create`
 - `Object.is`
-  . `Number.prototype.toLocaleString`
-- `String.prototype.indexOf`
+- `Number.prototype.toLocaleString`
 - `String.prototype.includes`
-- `String.prototype.lastIndexOf`
-- `String.prototype.charAt`
 - `String.prototype.replace`
 - `Symbol.toStringTag`,
 - `WeakMap`
