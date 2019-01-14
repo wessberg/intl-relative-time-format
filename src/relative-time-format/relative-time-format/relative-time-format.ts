@@ -191,12 +191,12 @@ export class RelativeTimeFormat {
 
 		// If Type(relativeTimeFormat) is not Object, throw a TypeError exception.
 		if (!(relativeTimeFormat instanceof Object)) {
-			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.format called on incompatible receiver ${this.toString()}`);
+			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.formatToParts called on incompatible receiver ${this.toString()}`);
 		}
 
 		// If relativeTimeFormat does not have an [[InitializedRelativeTimeFormat]] internal slot, throw a TypeError exception.
 		if (!hasInternalSlot(relativeTimeFormat, "initializedRelativeTimeFormat")) {
-			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.format called on incompatible receiver ${this.toString()}`);
+			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.formatToParts called on incompatible receiver ${this.toString()}`);
 		}
 
 		// Let value be ? ToNumber(value).
@@ -218,12 +218,12 @@ export class RelativeTimeFormat {
 
 		// If Type(relativeTimeFormat) is not Object, throw a TypeError exception.
 		if (!(relativeTimeFormat instanceof Object)) {
-			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.format called on incompatible receiver ${this.toString()}`);
+			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.resolvedOptions called on incompatible receiver ${this.toString()}`);
 		}
 
 		// If relativeTimeFormat does not have an [[InitializedRelativeTimeFormat]] internal slot, throw a TypeError exception.
 		if (!hasInternalSlot(relativeTimeFormat, "initializedRelativeTimeFormat")) {
-			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.format called on incompatible receiver ${this.toString()}`);
+			throw new TypeError(`Method Intl.RelativeTimeFormat.prototype.resolvedOptions called on incompatible receiver ${this.toString()}`);
 		}
 
 		const locale = getInternalSlot(this, "locale");
