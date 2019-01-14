@@ -6,8 +6,6 @@ import {isRecord} from "../../assert/is-record";
 import {isList} from "../../assert/is-list";
 import {unicodeExtensionValue} from "../unicode-extension/unicode-extension";
 import {sameValue} from "../../util/same-value";
-import {isStructurallyValidLanguageTag} from "../is-structurally-valid-language-tag/is-structurally-valid-language-tag";
-import {canonicalizeLanguageTag} from "../canonicalize-language-tag/canonicalize-language-tag";
 import {Locales} from "../../locale/locales";
 import {RelevantExtensionKey} from "../../relevant-extension-key/relevant-extension-key";
 import {LocaleData} from "../../locale/locale-data";
@@ -166,12 +164,9 @@ export function resolveLocale (availableLocales: Locales, requestedLocales: Loca
 		}
 
 		// Assert: IsStructurallyValidLanguageTag(foundLocale) is true.
-		if (!isStructurallyValidLanguageTag(foundLocale)) {
-			throw new TypeError(`The found locale: '${foundLocale}' is not a structurally valid language tag`);
-		}
-
 		// Let foundLocale be CanonicalizeLanguageTag(foundLocale).
-		foundLocale = canonicalizeLanguageTag(foundLocale);
+		// Intl.getCanonicalLocales will throw a TypeError if the locale isn't structurally valid
+		foundLocale = Intl.getCanonicalLocales(foundLocale)[0];
 	}
 
 	// Set result.[[locale]] to foundLocale.

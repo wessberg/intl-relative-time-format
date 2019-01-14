@@ -7,7 +7,6 @@ import {createProgramFromSources, SourceFileInput} from "./ts/create-program-fro
 import {ExtendedSingularRelativeTimeUnit, VALID_EXTENDED_SINGULAR_RELATIVE_TIME_UNIT_VALUES} from "../../src/unit/singular-relative-time-unit";
 import {LocaleDataEntry, LocaleDataEntryValue} from "../../src/locale/locale-data";
 import stringify from "javascript-stringify";
-import {canonicalizeLanguageTag} from "../../src/relative-time-format/canonicalize-language-tag/canonicalize-language-tag";
 
 // The directory on disk to write locale files to
 const OUTPUT_DIRECTORY = join(dirname(sync("package.json")!), "locale-data");
@@ -21,7 +20,8 @@ const sources: SourceFileInput[] = [];
 
 // Loop through all locales
 for (const localeId of localeIds) {
-	const locale = canonicalizeLanguageTag(localeId.replace(/_/g, "-"));
+	// @ts-ignore
+	const locale = Intl.getCanonicalLocales(localeId.replace(/_/g, "-"))[0];
 	console.log(`Building data for locale: ${locale} (localeId: ${localeId})`);
 
 	// Take the default NumberSystem for the locale
