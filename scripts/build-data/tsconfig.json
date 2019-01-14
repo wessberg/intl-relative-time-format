@@ -1,0 +1,16 @@
+{
+	"extends": "@wessberg/ts-config",
+	"compilerOptions": {
+		"target": "es2017",
+		"module": "commonjs",
+		"outDir": "compiled",
+		"lib": [
+			"dom",
+			"es5",
+			"es2015",
+			"es2015.collection",
+			"es2016.array.include",
+			"es2017"
+		]
+	}
+}

@@ -1,0 +1,96 @@
+{
+  "name": "intl-relative-time-format",
+  "version": "1.0.0",
+  "description": "A fully spec-compliant polyfill for 'Intl.RelativeTimeFormat'",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wessberg/intl-relative-time-format.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wessberg/intl-relative-time-format/issues"
+  },
+  "scripts": {
+    "generate:readme": "scaffold readme",
+    "generate:license": "scaffold license",
+    "generate:contributing": "scaffold contributing",
+    "generate:coc": "scaffold coc",
+    "generate:changelog": "standard-changelog --first-release",
+    "generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme  & npm run generate:changelog",
+    "clean:compiled": "rm -rf compiled",
+    "clean": "npm run clean:dist && npm run clean:compiled",
+    "update": "ncu -ua && npm update && npm install",
+    "lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
+    "prerollup": "rm -r -f dist",
+    "rollup": "rollup -c rollup.config.js",
+    "prepare": "NODE_ENV=production npm run rollup",
+    "pretest": "npm run clean:compiled && tsc --module commonjs --target es2017 --sourceMap",
+    "test": "NODE_ENV=TEST ava --fail-fast",
+    "posttest": "npm run clean:compiled",
+    "build_data": "cd scripts/build-data && tsc && node compiled/scripts/build-data/build-data.js && rm -rf compiled",
+    "publish:before": "NODE_ENV=production npm run lint && && npm run build_data && npm run test && NODE_ENV=production npm run prepare && npm run generate:all && git add . && (git commit -am \"Bumped version\" && git push) || true",
+    "publish:after": "git push && npm publish",
+    "publish:patch": "npm run publish:before && npm version patch && npm run publish:after",
+    "publish:minor": "npm run publish:before && npm version minor && npm run publish:after",
+    "publish:major": "npm run publish:before && npm version major && npm run publish:after"
+  },
+  "files": [
+    "dist/**/*.*",
+    "locale-data/**/*.*"
+  ],
+  "keywords": [
+    "intl",
+    "RelativeTimeFormat",
+    "ecma-402",
+    "internationalization",
+    "i18n",
+    "time ago",
+    "polyfill",
+    "relative time",
+    "ECMAScript internationalization API"
+  ],
+  "author": {
+    "name": "Frederik Wessberg",
+    "email": "frederikwessberg@hotmail.com",
+    "url": "https://github.com/wessberg"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/find-up": "^2.1.1",
+    "@wessberg/rollup-plugin-ts": "1.1.17",
+    "@wessberg/scaffold": "1.0.5",
+    "@wessberg/ts-config": "^0.0.34",
+    "ava": "^1.1.0",
+    "cldr": "^4.13.0",
+    "find-up": "^3.0.0",
+    "npm-check-updates": "^2.15.0",
+    "rollup": "^1.1.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "standard-changelog": "^2.0.6",
+    "javascript-stringify": "^1.6.0",
+    "tslib": "^1.9.3",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {},
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "es2015": "./dist/index.js",
+  "engines": {
+    "node": ">=9.0.0"
+  },
+  "scaffold": {
+    "patreonUserId": "11315442",
+    "contributorMeta": {
+      "Frederik Wessberg": {
+        "imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
+        "role": "Maintainer",
+        "twitterHandle": "FredWessberg",
+        "isCocEnforcer": true
+      }
+    },
+    "backers": []
+  }
+}

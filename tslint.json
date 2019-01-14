@@ -1,0 +1,9 @@
+{
+	"extends": "./node_modules/@wessberg/ts-config/tslint/tslint.json",
+	"rules": {
+		"completed-docs": false,
+		"no-gratuitous-expressions": false,
+		"interface-name": false,
+		"no-duplicate-string": false
+	}
+}

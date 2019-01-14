@@ -1,0 +1,15 @@
+{
+	"extends": "@wessberg/ts-config",
+	"compilerOptions": {
+		"target": "es3",
+		"downlevelIteration": true,
+		"lib": [
+			"dom",
+			"es5",
+			"es2015",
+			"es2015.collection",
+			"es2016.array.include",
+			"es2017"
+		]
+	}
+}
