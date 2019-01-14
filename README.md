@@ -131,7 +131,6 @@ rtf.format(1, "day");
 This polyfill is distributed in ES3-compatible syntax, but is using some APIs and language features which must be available:
 
 - `Array.prototype.includes`
-- `Object.prototype.hasOwnProperty`
 - `Object.create`
 - `Object.is`
   . `Number.prototype.toLocaleString`
