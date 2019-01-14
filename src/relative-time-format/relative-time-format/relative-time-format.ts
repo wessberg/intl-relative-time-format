@@ -1,7 +1,6 @@
 import {Locale} from "../../locale/locale";
 import {Locales} from "../../locale/locales";
 import {RelativeTimeFormatOptions} from "./relative-time-format-options";
-import {canonicalizeLocaleList} from "../canonicalize-locale-list/canonicalize-locale-list";
 import {toObject} from "../../util/to-object";
 import {InputLocaleDataEntry} from "../../locale/locale-data";
 import {resolveLocale} from "../resolve-locale/resolve-locale";
@@ -39,7 +38,7 @@ export class RelativeTimeFormat {
 
 		// The following operations comes from the 'InitializeRelativeFormat' abstract operation (http://tc39.github.io/proposal-intl-relative-time/#sec-InitializeRelativeTimeFormat)
 		// Let requestedLocales be ? CanonicalizeLocaleList(locales).
-		const requestedLocales = canonicalizeLocaleList(locales);
+		const requestedLocales = Intl.getCanonicalLocales(locales);
 
 		// If options is undefined, then (a) Let options be ObjectCreate(null).
 		// Else (b) Let options be ? ToObject(options).
@@ -108,10 +107,25 @@ export class RelativeTimeFormat {
 
 		// Let relativeTimeFormat.[[PluralRules]] be ! Construct(%PluralRules%, « locale »).
 		// tslint:disable-next-line:no-any
-		setInternalSlot(this, "pluralRules", new (Intl as unknown as {PluralRules: IntlPluralRulesConstructor}).PluralRules(locale));
+		setInternalSlot(this, "pluralRules", new (Intl as unknown as { PluralRules: IntlPluralRulesConstructor }).PluralRules(locale));
 
 		// Intl.RelativeTimeFormat instances have an [[InitializedRelativeTimeFormat]] internal slot.
 		setInternalSlot(this, "initializedRelativeTimeFormat", this);
+	}
+
+	/**
+	 * Returns an array containing those of the provided locales that are supported without having to fall back to the runtime's default locale.
+	 * @param {Locale | Locales} locales
+	 * @param {SupportedLocalesOptions | undefined} options
+	 * @return {Locales}
+	 */
+	public static supportedLocalesOf (locales: Locale|Locales, options?: SupportedLocalesOptions|undefined): Locales {
+		// Let availableLocales be %RelativeTimeFormat%.[[AvailableLocales]].
+		const availableLocales = RELATIVE_TIME_FORMAT_STATIC_INTERNALS.availableLocales;
+
+		// Let requestedLocales be ? CanonicalizeLocaleList(locales).
+		const requestedLocales = Intl.getCanonicalLocales(locales);
+		return supportedLocales(availableLocales, requestedLocales, options);
 	}
 
 	/**
@@ -133,21 +147,6 @@ export class RelativeTimeFormat {
 		if (!RELATIVE_TIME_FORMAT_STATIC_INTERNALS.availableLocales.includes(locale)) {
 			RELATIVE_TIME_FORMAT_STATIC_INTERNALS.availableLocales.push(locale);
 		}
-	}
-
-	/**
-	 * Returns an array containing those of the provided locales that are supported without having to fall back to the runtime's default locale.
-	 * @param {Locale | Locales} locales
-	 * @param {SupportedLocalesOptions | undefined} options
-	 * @return {Locales}
-	 */
-	public static supportedLocalesOf (locales: Locale|Locales, options?: SupportedLocalesOptions|undefined): Locales {
-		// Let availableLocales be %RelativeTimeFormat%.[[AvailableLocales]].
-		const availableLocales = RELATIVE_TIME_FORMAT_STATIC_INTERNALS.availableLocales;
-
-		// Let requestedLocales be ? CanonicalizeLocaleList(locales).
-		const requestedLocales = canonicalizeLocaleList(locales);
-		return supportedLocales(availableLocales, requestedLocales, options);
 	}
 
 	/**

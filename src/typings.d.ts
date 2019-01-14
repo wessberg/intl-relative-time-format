@@ -1,4 +1,6 @@
 declare namespace Intl {
+	function getCanonicalLocales (locales: string|string[]|undefined): string[];
+
 	type Locale = string;
 	type Locales = Locale[];
 
@@ -27,6 +29,7 @@ declare namespace Intl {
 	interface SupportedLocalesOptions {
 		localeMatcher: LocaleMatcher;
 	}
+
 	export interface PartitionBase {
 		value: string;
 	}
