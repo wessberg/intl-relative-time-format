@@ -11,7 +11,7 @@
 
 ## Description
 
-This is a 1:1 implementation of the [`Intl.RelativeTimeFormat](https://github.com/tc39/proposal-intl-relative-time) draft spec proposal ECMA-402, or the ECMAScript® Internationalization API Specification.
+This is a 1:1 implementation of the [`Intl.RelativeTimeFormat`](https://github.com/tc39/proposal-intl-relative-time) draft spec proposal ECMA-402, or the ECMAScript® Internationalization API Specification.
 `Intl.RelativeTimeFormat` is a really useful low-level primitive to build on top of which avoids the need to parse lots of CLDR raw data at the expense of your users and their internet connections.
 
 Some highlights of this polyfill include:
