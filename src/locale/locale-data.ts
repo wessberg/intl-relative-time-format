@@ -5,7 +5,7 @@ import {RelevantExtensionKey} from "../relevant-extension-key/relevant-extension
 export type LocaleDataEntryValue = {
 	future: Record<string, string>;
 	past: Record<string, string>;
-} & {[key: string]: string};
+} & Record<string, string>;
 
 export type LocaleDataEntry = {
 	[Key in ExtendedSingularRelativeTimeUnit|RelevantExtensionKey]: Key extends ExtendedSingularRelativeTimeUnit ? LocaleDataEntryValue|undefined : string[]|undefined;
