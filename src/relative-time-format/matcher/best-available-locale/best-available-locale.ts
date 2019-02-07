@@ -1,5 +1,5 @@
-import {Locales} from "../../../locale/locales";
-import {Locale} from "../../../locale/locale";
+import { Locales } from "../../../locale/locales";
+import { Locale } from "../../../locale/locale";
 
 /**
  * The BestAvailableLocale abstract operation compares the provided argument locale,
@@ -13,27 +13,30 @@ import {Locale} from "../../../locale/locale";
  * @param {Locale} locale
  * @return {string}
  */
-export function bestAvailableLocale (availableLocales: Locales, locale: Locale): string|undefined {
-	// Let candidate be locale.
-	let candidate = locale;
-	// Repeat
-	while (true) {
-		// If availableLocales contains an element equal to candidate, return candidate.
-		if (availableLocales.includes(candidate)) {
-			return candidate;
-		}
+export function bestAvailableLocale(
+  availableLocales: Locales,
+  locale: Locale
+): string | undefined {
+  // Let candidate be locale.
+  let candidate = locale;
+  // Repeat
+  while (true) {
+    // If availableLocales contains an element equal to candidate, return candidate.
+    if (availableLocales.includes(candidate)) {
+      return candidate;
+    }
 
-		// Let pos be the character index of the last occurrence of "-" (U+002D) within candidate.
-		let pos = candidate.lastIndexOf("-");
-		// If that character does not occur, return undefined.
-		if (pos === -1) return undefined;
+    // Let pos be the character index of the last occurrence of "-" (U+002D) within candidate.
+    let pos = candidate.lastIndexOf("-");
+    // If that character does not occur, return undefined.
+    if (pos === -1) return undefined;
 
-		// If pos ≥ 2 and the character "-" occurs at index pos-2 of candidate, decrease pos by 2.
-		if (pos >= 2 && candidate.charAt(pos - 2) === "-") {
-			pos -= 2;
-		}
+    // If pos ≥ 2 and the character "-" occurs at index pos-2 of candidate, decrease pos by 2.
+    if (pos >= 2 && candidate.charAt(pos - 2) === "-") {
+      pos -= 2;
+    }
 
-		// Let candidate be the substring of candidate from position 0, inclusive, to position pos, exclusive.
-		candidate = candidate.slice(0, pos);
-	}
+    // Let candidate be the substring of candidate from position 0, inclusive, to position pos, exclusive.
+    candidate = candidate.slice(0, pos);
+  }
 }

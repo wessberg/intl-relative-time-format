@@ -1,5 +1,5 @@
-import {Locales} from "../../locale/locales";
-import {lookupSupportedLocales} from "./lookup-supported-locales";
+import { Locales } from "../../locale/locales";
+import { lookupSupportedLocales } from "./lookup-supported-locales";
 
 /**
  * The BestFitSupportedLocales abstract operation returns the subset of the provided BCP 47 language priority list
@@ -11,6 +11,9 @@ import {lookupSupportedLocales} from "./lookup-supported-locales";
  * @param {Locales} requestedLocales
  * @return {Locales}
  */
-export function bestFitSupportedLocales (availableLocales: Locales, requestedLocales: Locales): Locales {
-	return lookupSupportedLocales(availableLocales, requestedLocales);
+export function bestFitSupportedLocales(
+  availableLocales: Locales,
+  requestedLocales: Locales
+): Locales {
+  return lookupSupportedLocales(availableLocales, requestedLocales);
 }

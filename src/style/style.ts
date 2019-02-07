@@ -1,1 +1,1 @@
-export type Style = "long"|"short"|"narrow";
+export type Style = "long" | "short" | "narrow";

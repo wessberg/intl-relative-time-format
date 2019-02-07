@@ -1,1 +1,1 @@
-export type List<T> = Record<PropertyKey, T>|T[];
+export type List<T> = Record<PropertyKey, T> | T[];

@@ -1,7 +1,7 @@
-import {RelativeTimeFormat} from "../relative-time-format/relative-time-format";
-import {RelativeTimeUnit} from "../../unit/relative-time-unit";
-import {partitionRelativeTimePattern} from "../partition-relative-time-pattern/partition-relative-time-pattern";
-import {UnitPartitions} from "../../partition/partition";
+import { RelativeTimeFormat } from "../relative-time-format/relative-time-format";
+import { RelativeTimeUnit } from "../../unit/relative-time-unit";
+import { partitionRelativeTimePattern } from "../partition-relative-time-pattern/partition-relative-time-pattern";
+import { UnitPartitions } from "../../partition/partition";
 
 /**
  * The FormatRelativeTimeToParts abstract operation is called with arguments relativeTimeFormat
@@ -14,6 +14,10 @@ import {UnitPartitions} from "../../partition/partition";
  * @param {RelativeTimeUnit} unit
  * @return {UnitPartitions}
  */
-export function formatRelativeTimeToParts (relativeTimeFormat: RelativeTimeFormat, value: number, unit: RelativeTimeUnit): UnitPartitions {
-	return partitionRelativeTimePattern(relativeTimeFormat, value, unit);
+export function formatRelativeTimeToParts(
+  relativeTimeFormat: RelativeTimeFormat,
+  value: number,
+  unit: RelativeTimeUnit
+): UnitPartitions {
+  return partitionRelativeTimePattern(relativeTimeFormat, value, unit);
 }

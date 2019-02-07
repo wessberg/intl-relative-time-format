@@ -1,6 +1,6 @@
-import {MatcherOptions} from "../matcher-options";
-import {MatcherResult} from "../matcher-result";
-import {lookupMatcher} from "../lookup-matcher/lookup-matcher";
+import { MatcherOptions } from "../matcher-options";
+import { MatcherResult } from "../matcher-result";
+import { lookupMatcher } from "../lookup-matcher/lookup-matcher";
 
 /**
  * The BestFitMatcher abstract operation compares requestedLocales,
@@ -20,6 +20,6 @@ import {lookupMatcher} from "../lookup-matcher/lookup-matcher";
  * @param {MatcherOptions} options
  * @return {MatcherResult}
  */
-export function bestFitMatcher (options: MatcherOptions): MatcherResult {
-	return lookupMatcher(options);
+export function bestFitMatcher(options: MatcherOptions): MatcherResult {
+  return lookupMatcher(options);
 }

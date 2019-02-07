@@ -1,1 +1,1 @@
-export type LocaleMatcher = "lookup"|"best fit";
+export type LocaleMatcher = "lookup" | "best fit";

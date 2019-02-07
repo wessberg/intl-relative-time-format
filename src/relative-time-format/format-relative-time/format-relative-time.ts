@@ -1,6 +1,6 @@
-import {RelativeTimeFormat} from "../relative-time-format/relative-time-format";
-import {RelativeTimeUnit} from "../../unit/relative-time-unit";
-import {partitionRelativeTimePattern} from "../partition-relative-time-pattern/partition-relative-time-pattern";
+import { RelativeTimeFormat } from "../relative-time-format/relative-time-format";
+import { RelativeTimeUnit } from "../../unit/relative-time-unit";
+import { partitionRelativeTimePattern } from "../partition-relative-time-pattern/partition-relative-time-pattern";
 
 /**
  * The FormatRelativeTime abstract operation is called with arguments relativeTimeFormat
@@ -13,20 +13,23 @@ import {partitionRelativeTimePattern} from "../partition-relative-time-pattern/p
  * @param {RelativeTimeUnit} unit
  * @return {string}
  */
-export function formatRelativeTime (relativeTimeFormat: RelativeTimeFormat, value: number, unit: RelativeTimeUnit): string {
-	// Let parts be ? PartitionRelativeTimePattern(relativeTimeFormat, value, unit).
-	const parts = partitionRelativeTimePattern(relativeTimeFormat, value, unit);
+export function formatRelativeTime(
+  relativeTimeFormat: RelativeTimeFormat,
+  value: number,
+  unit: RelativeTimeUnit
+): string {
+  // Let parts be ? PartitionRelativeTimePattern(relativeTimeFormat, value, unit).
+  const parts = partitionRelativeTimePattern(relativeTimeFormat, value, unit);
 
-	// Let result be an empty String.
-	let result = "";
+  // Let result be an empty String.
+  let result = "";
 
-	// For each part in parts, do
-	for (const part of parts) {
+  // For each part in parts, do
+  for (const part of parts) {
+    // Set result to the string-concatenation of result and part.[[Value]].
+    result += part.value;
+  }
 
-		// Set result to the string-concatenation of result and part.[[Value]].
-		result += part.value;
-	}
-
-	// Return result.
-	return result;
+  // Return result.
+  return result;
 }

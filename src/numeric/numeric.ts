@@ -1,1 +1,1 @@
-export type Numeric = "always"|"auto";
+export type Numeric = "always" | "auto";
