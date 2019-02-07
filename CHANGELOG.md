@@ -1,3 +1,15 @@
+## [1.0.5](https://github.com/wessberg/intl-relative-time-format/compare/v1.0.4...v1.0.5) (2019-02-07)
+
+### Bug Fixes
+
+- **chore:** Removes a few [@ts-ignore](https://github.com/ts-ignore) comments ([ed1dd85](https://github.com/wessberg/intl-relative-time-format/commit/ed1dd85))
+- **chore:** Removes a few [@ts-ignore](https://github.com/ts-ignore) comments ([673e964](https://github.com/wessberg/intl-relative-time-format/commit/673e964))
+
+### Features
+
+- **chore:** better error messages ([20bcd1e](https://github.com/wessberg/intl-relative-time-format/commit/20bcd1e))
+- **chore:** better error messages ([9284d56](https://github.com/wessberg/intl-relative-time-format/commit/9284d56))
+
 ## [1.0.4](https://github.com/wessberg/intl-relative-time-format/compare/v1.0.3...v1.0.4) (2019-01-14)
 
 ### Features

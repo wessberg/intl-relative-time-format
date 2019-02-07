@@ -15,6 +15,7 @@
 <a href="https://npmcharts.com/compare/intl-relative-time-format?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/intl-relative-time-format.svg"    /></a>
 <a href="https://david-dm.org/wessberg/intl-relative-time-format"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fintl-relative-time-format.svg"    /></a>
 <a href="https://github.com/wessberg/intl-relative-time-format/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fintl-relative-time-format.svg"    /></a>
+<a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"    /></a>
 <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"    /></a>
 <a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://img.shields.io/badge/patreon-donate-green.svg"    /></a>
 
@@ -57,12 +58,21 @@ Some highlights of this polyfill include:
 - [Install](#install)
   - [NPM](#npm)
   - [Yarn](#yarn)
+- [Applying the polyfill](#applying-the-polyfill)
+- [Loading locale data](#loading-locale-data)
 - [Usage](#usage)
+  - [Intl.RelativeTimeFormat.prototype.format](#intlrelativetimeformatprototypeformat)
+  - [Intl.RelativeTimeFormat.prototype.formatToParts](#intlrelativetimeformatprototypeformattoparts)
+  - [Intl.RelativeTimeFormat.prototype.resolvedOptions](#intlrelativetimeformatprototyperesolvedoptions)
+  - [Intl.RelativeTimeFormat.supportedLocalesOf](#intlrelativetimeformatsupportedlocalesof)
+- [Dependencies & Browser support](#dependencies--browser-support)
 - [Contributing](#contributing)
 - [Maintainers](#maintainers)
 - [Backers](#backers)
   - [Patreon](#patreon)
   - [FAQ](#faq)
+  - [What is the default locale?](#what-is-the-default-locale)
+  - [Are there any known quirks?](#are-there-any-known-quirks)
 - [License](#license)
 
 <!-- SHADOW_SECTION_TOC_END -->
