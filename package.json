@@ -61,7 +61,7 @@
   "devDependencies": {
     "@types/find-up": "^2.1.1",
     "@wessberg/rollup-plugin-ts": "1.1.28",
-    "@wessberg/scaffold": "1.0.15",
+    "@wessberg/scaffold": "1.0.16",
     "@wessberg/ts-config": "^0.0.39",
     "ava": "^1.2.1",
     "cldr": "^4.13.0",

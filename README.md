@@ -1,6 +1,6 @@
 <!-- SHADOW_SECTION_LOGO_START -->
 
-<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/intl-relative-time-format/master/documentation/asset/logo.png" height="80"   /></div>
+<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/intl-relative-time-format/master/documentation/asset/logo.png" height="60"   /></div>
 
 <!-- SHADOW_SECTION_LOGO_END -->
 
@@ -13,6 +13,7 @@
 <!-- SHADOW_SECTION_BADGES_START -->
 
 <a href="https://npmcharts.com/compare/intl-relative-time-format?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/intl-relative-time-format.svg"    /></a>
+<a href="https://www.npmjs.com/package/intl-relative-time-format"><img alt="NPM version" src="https://badge.fury.io/js/intl-relative-time-format.svg"    /></a>
 <a href="https://david-dm.org/wessberg/intl-relative-time-format"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fintl-relative-time-format.svg"    /></a>
 <a href="https://github.com/wessberg/intl-relative-time-format/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fintl-relative-time-format.svg"    /></a>
 <a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"    /></a>
