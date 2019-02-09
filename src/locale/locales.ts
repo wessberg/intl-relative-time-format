@@ -1,3 +1,3 @@
-import { Locale } from "./locale";
+import {Locale} from "./locale";
 
 export type Locales = Locale[];

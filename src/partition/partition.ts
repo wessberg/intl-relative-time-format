@@ -1,23 +1,23 @@
-import { SingularRelativeTimeUnit } from "../unit/singular-relative-time-unit";
+import {SingularRelativeTimeUnit} from "../unit/singular-relative-time-unit";
 
 export interface PartitionBase {
-  value: string;
+	value: string;
 }
 
 export interface UnitPartitionBase extends PartitionBase {
-  unit: SingularRelativeTimeUnit;
+	unit: SingularRelativeTimeUnit;
 }
 
 export interface LiteralPartition extends PartitionBase {
-  type: "literal";
+	type: "literal";
 }
 
 export interface IntegerPartition extends PartitionBase {
-  type: "integer";
+	type: "integer";
 }
 
 export interface UnitIntegerPartition extends UnitPartitionBase {
-  type: "integer";
+	type: "integer";
 }
 
 export type Partition = LiteralPartition | IntegerPartition;

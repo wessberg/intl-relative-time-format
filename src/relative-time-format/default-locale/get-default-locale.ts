@@ -1,4 +1,4 @@
-import { Locale } from "../../locale/locale";
+import {Locale} from "../../locale/locale";
 
 /**
  * Must represent the structurally valid (6.2.2) and canonicalized (6.2.3) BCP 47 language tag for the host environment's current locale.
@@ -13,7 +13,7 @@ let _defaultLocale: Locale | undefined;
  * @param {Locale} locale
  */
 export function setDefaultLocale(locale: Locale): void {
-  _defaultLocale = locale;
+	_defaultLocale = locale;
 }
 
 /**
@@ -22,7 +22,7 @@ export function setDefaultLocale(locale: Locale): void {
  * @return {Locale | undefined}
  */
 export function getDefaultLocale(): Locale | undefined {
-  return _defaultLocale;
+	return _defaultLocale;
 }
 
 /**
@@ -30,10 +30,8 @@ export function getDefaultLocale(): Locale | undefined {
  * @return {Locale}
  */
 export function ensureDefaultLocale(): Locale {
-  if (_defaultLocale == null) {
-    throw new ReferenceError(
-      `Could not determine locale: No default locale has been configured`
-    );
-  }
-  return _defaultLocale;
+	if (_defaultLocale == null) {
+		throw new ReferenceError(`Could not determine locale: No default locale has been configured`);
+	}
+	return _defaultLocale;
 }
