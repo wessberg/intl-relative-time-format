@@ -1,3 +1,5 @@
+## [1.0.6](https://github.com/wessberg/intl-relative-time-format/compare/v1.0.5...v1.0.6) (2019-02-09)
+
 ## [1.0.5](https://github.com/wessberg/intl-relative-time-format/compare/v1.0.4...v1.0.5) (2019-02-07)
 
 ### Bug Fixes

@@ -71,7 +71,7 @@ Some highlights of this polyfill include:
 - [Maintainers](#maintainers)
 - [Backers](#backers)
   - [Patreon](#patreon)
-  - [FAQ](#faq)
+- [FAQ](#faq)
   - [What is the default locale?](#what-is-the-default-locale)
   - [Are there any known quirks?](#are-there-any-known-quirks)
 - [License](#license)
@@ -114,10 +114,10 @@ One way to do so is with an async import:
 
 ```typescript
 if (!("RelativeTimeFormat" in Intl)) {
-  await import("intl-relative-time-format");
+	await import("intl-relative-time-format");
 
-  // or with commonjs:
-  require("intl-relative-time-format");
+	// or with commonjs:
+	require("intl-relative-time-format");
 }
 ```
 
@@ -164,9 +164,9 @@ The following examples are taken [directly from the original proposal](https://g
 // Create a relative time formatter in your locale
 // with default values explicitly passed in.
 const rtf = new Intl.RelativeTimeFormat("en", {
-  localeMatcher: "best fit", // other values: "lookup"
-  numeric: "always", // other values: "auto"
-  style: "long" // other values: "short" or "narrow"
+	localeMatcher: "best fit", // other values: "lookup"
+	numeric: "always", // other values: "auto"
+	style: "long" // other values: "short" or "narrow"
 });
 
 // Format relative time using negative value (-1).
@@ -181,7 +181,7 @@ rtf.format(1, "day");
 ```typescript
 // Create a relative time formatter in your locale
 // with numeric: "auto" option value passed in.
-const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+const rtf = new Intl.RelativeTimeFormat("en", {numeric: "auto"});
 
 // Format relative time using negative value (-1).
 rtf.format(-1, "day");
@@ -195,7 +195,7 @@ rtf.format(1, "day");
 ### Intl.RelativeTimeFormat.prototype.formatToParts
 
 ```typescript
-const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+const rtf = new Intl.RelativeTimeFormat("en", {numeric: "auto"});
 
 // Format relative time using the day unit.
 rtf.formatToParts(-1, "day");
@@ -209,8 +209,8 @@ rtf.formatToParts(100, "day");
 
 ```typescript
 const rtf = new Intl.RelativeTimeFormat("en", {
-  numeric: "always",
-  style: "narrow"
+	numeric: "always",
+	style: "narrow"
 });
 
 rtf.resolvedOptions();
@@ -275,7 +275,7 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 
 <!-- SHADOW_SECTION_FAQ_START -->
 
-### FAQ
+## FAQ
 
 <!-- SHADOW_SECTION_FAQ_END -->
 
