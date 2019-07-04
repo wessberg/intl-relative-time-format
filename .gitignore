@@ -1,6 +1,7 @@
 /node_modules/
 /compiled/
 /locale-data/
+/test262-polyfill.js*
 scripts/build-data/compiled/
 /dist/
 /typings/

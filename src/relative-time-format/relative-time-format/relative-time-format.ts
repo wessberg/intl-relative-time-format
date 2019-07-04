@@ -2,6 +2,7 @@ import {Locale} from "../../locale/locale";
 import {Locales} from "../../locale/locales";
 import {RelativeTimeFormatOptions} from "./relative-time-format-options";
 import {toObject} from "../../util/to-object";
+import {toString} from "../../util/to-string";
 import {InputLocaleDataEntry} from "../../locale/locale-data";
 import {resolveLocale} from "../resolve-locale/resolve-locale";
 import {supportedLocales} from "../supported-locales/supported-locales";
@@ -10,10 +11,15 @@ import {RelativeTimeUnit} from "../../unit/relative-time-unit";
 import {formatRelativeTime} from "../format-relative-time/format-relative-time";
 import {getInternalSlot, hasInternalSlot, RELATIVE_TIME_FORMAT_STATIC_INTERNALS, setInternalSlot} from "../internal-slot/internal-slot";
 import {IntlPluralRulesConstructor} from "../../intl-object/intl-object";
-import {UnitPartitions} from "../../partition/partition";
 import {formatRelativeTimeToParts} from "../format-relative-time-to-parts/format-relative-time-to-parts";
 import {ResolvedRelativeTimeFormatOptions} from "./resolved-relative-time-format-options";
 import {getDefaultLocale, setDefaultLocale} from "../default-locale/get-default-locale";
+import {getOption} from "../../util/get-option";
+import {LOCALE_MATCHER} from "../../locale-matcher/locale-matcher";
+import {STYLE} from "../../style/style";
+import {NUMERIC} from "../../numeric/numeric";
+import {toNumber} from "../../util/to-number";
+import {RelativeTimeFormatPart} from "../../relative-time-format-part/relative-time-format-part";
 
 /**
  * The RelativeTimeFormat constructor is the %RelativeTimeFormat% intrinsic object and a standard built-in property of the Intl object.
@@ -22,14 +28,11 @@ import {getDefaultLocale, setDefaultLocale} from "../default-locale/get-default-
  * http://tc39.github.io/proposal-intl-relative-time/#sec-intl-relativetimeformat-constructor
  */
 export class RelativeTimeFormat {
-	/**
-	 * The initial value of the @@toStringTag property is the string value "Intl.RelativeTimeFormat".
-	 * This property has the attributes { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true }.
-	 * @type {string}
-	 */
-	public [Symbol.toStringTag] = "Intl.RelativeTimeFormat";
+	// The spec states that the constructor must have a length of 0 and therefore be parameter-less
+	constructor() {
+		const locales = arguments[0] as Locale | Locales | undefined;
+		let options = arguments[1] as Partial<RelativeTimeFormatOptions>;
 
-	constructor(locales?: Locale | Locales | undefined, options?: Partial<RelativeTimeFormatOptions>) {
 		// If NewTarget is undefined, throw a TypeError exception.
 		if (new.target === undefined) {
 			throw new TypeError(`Constructor Intl.RelativeTimeFormat requires 'new'`);
@@ -43,11 +46,11 @@ export class RelativeTimeFormat {
 		// Else (b) Let options be ? ToObject(options).
 		options = options === undefined ? (Object.create(null) as Partial<RelativeTimeFormatOptions>) : toObject(options);
 
-		// Let opt be a new Record.
-		const opt = {} as RelativeTimeFormatOptions;
+		// Let opt be a new Record (that doesn't derive from Object.prototype).
+		const opt = Object.create(null) as RelativeTimeFormatOptions;
 
 		// Let matcher be ? GetOption(options, "localeMatcher", "string", «"lookup", "best fit"»,  "best fit").
-		const matcher = options.localeMatcher != null ? options.localeMatcher : "best fit";
+		const matcher = getOption(options, "localeMatcher", "string", LOCALE_MATCHER, "best fit");
 
 		// Set opt.[[LocaleMatcher]] to matcher.
 		opt.localeMatcher = matcher;
@@ -56,7 +59,13 @@ export class RelativeTimeFormat {
 		const localeData = RELATIVE_TIME_FORMAT_STATIC_INTERNALS.localeData;
 
 		// Let r be ResolveLocale(%RelativeTimeFormat%.[[AvailableLocales]], requestedLocales, opt, %RelativeTimeFormat%.[[RelevantExtensionKeys]], localeData).
-		const r = resolveLocale(RELATIVE_TIME_FORMAT_STATIC_INTERNALS.availableLocales, requestedLocales, opt, RELATIVE_TIME_FORMAT_STATIC_INTERNALS.relevantExtensionKeys, localeData);
+		const r = resolveLocale(
+			RELATIVE_TIME_FORMAT_STATIC_INTERNALS.availableLocales,
+			requestedLocales,
+			opt,
+			RELATIVE_TIME_FORMAT_STATIC_INTERNALS.relevantExtensionKeys,
+			localeData
+		);
 
 		// Let locale be r.[[Locale]].
 		const locale = r.locale;
@@ -71,13 +80,13 @@ export class RelativeTimeFormat {
 		const dataLocale = r.dataLocale;
 
 		// Let s be ? GetOption(options, "style", "string", «"long", "short", "narrow"», "long").
-		const s = options.style != null ? options.style : "long";
+		const s = getOption(options, "style", "string", STYLE, "long");
 
 		// Set relativeTimeFormat.[[Style]] to s.
 		setInternalSlot(this, "style", s);
 
 		// Let numeric be ? GetOption(options, "numeric", "string", «"always", "auto"», "always").
-		const numeric = options.numeric != null ? options.numeric : "auto";
+		const numeric = getOption(options, "numeric", "string", NUMERIC, "always");
 
 		// Set relativeTimeFormat.[[Numeric]] to numeric.
 		setInternalSlot(this, "numeric", numeric);
@@ -113,10 +122,13 @@ export class RelativeTimeFormat {
 	/**
 	 * Returns an array containing those of the provided locales that are supported without having to fall back to the runtime's default locale.
 	 * @param {Locale | Locales} locales
-	 * @param {SupportedLocalesOptions | undefined} options
 	 * @return {Locales}
 	 */
-	public static supportedLocalesOf(locales: Locale | Locales, options?: SupportedLocalesOptions | undefined): Locales {
+	public static supportedLocalesOf(locales: Locale | Locales): Locales {
+		// The spec states that the 'length' value of supportedLocalesOf must be equal to 1,
+		// so we have to pull the options argument out of the method signature
+		const options = arguments[1] as SupportedLocalesOptions | undefined;
+
 		// Let availableLocales be %RelativeTimeFormat%.[[AvailableLocales]].
 		const availableLocales = RELATIVE_TIME_FORMAT_STATIC_INTERNALS.availableLocales;
 
@@ -167,9 +179,9 @@ export class RelativeTimeFormat {
 		}
 
 		// Let value be ? ToNumber(value).
-		value = Number(value);
+		value = toNumber(value);
 		// Let unit be ? ToString(unit).
-		unit = String(unit) as RelativeTimeUnit;
+		unit = toString(unit) as RelativeTimeUnit;
 
 		// Return ? FormatRelativeTime(relativeTimeFormat, value, unit).
 		return formatRelativeTime(relativeTimeFormat, value, unit);
@@ -180,9 +192,9 @@ export class RelativeTimeFormat {
 	 * separating the formatted number into its constituent parts and separating it from other surrounding text
 	 * @param {number} value
 	 * @param {RelativeTimeUnit} unit
-	 * @return {UnitPartitions}
+	 * @return {RelativeTimeFormatPart[]}
 	 */
-	public formatToParts(value: number, unit: RelativeTimeUnit): UnitPartitions {
+	public formatToParts(value: number, unit: RelativeTimeUnit): RelativeTimeFormatPart[] {
 		// Let relativeTimeFormat be the this value.
 		const relativeTimeFormat = this;
 
@@ -197,9 +209,9 @@ export class RelativeTimeFormat {
 		}
 
 		// Let value be ? ToNumber(value).
-		value = Number(value);
+		value = toNumber(value);
 		// Let unit be ? ToString(unit).
-		unit = String(unit) as RelativeTimeUnit;
+		unit = toString(unit) as RelativeTimeUnit;
 
 		// Return ? FormatRelativeTimeToParts(relativeTimeFormat, value, unit).
 		return formatRelativeTimeToParts(relativeTimeFormat, value, unit);
@@ -224,15 +236,27 @@ export class RelativeTimeFormat {
 		}
 
 		const locale = getInternalSlot(this, "locale");
-		const numberingSystem = getInternalSlot(this, "numberingSystem");
 		const style = getInternalSlot(this, "style");
 		const numeric = getInternalSlot(this, "numeric");
+		const numberingSystem = getInternalSlot(this, "numberingSystem");
 
 		return {
 			locale,
-			numberingSystem,
 			style,
-			numeric
+			numeric,
+			numberingSystem
 		};
 	}
 }
+
+/**
+ * The initial value of the @@toStringTag property is the string value "Intl.RelativeTimeFormat".
+ * This property has the attributes { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true }.
+ * @type {string}
+ */
+Object.defineProperty(RelativeTimeFormat.prototype, Symbol.toStringTag, {
+	writable: false,
+	enumerable: false,
+	value: "Intl.RelativeTimeFormat",
+	configurable: true
+});

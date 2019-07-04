@@ -3,6 +3,8 @@ import {toObject} from "../../util/to-object";
 import {bestFitSupportedLocales} from "./best-fit-supported-locales";
 import {lookupSupportedLocales} from "./lookup-supported-locales";
 import {SupportedLocalesOptions} from "./supported-locales-options";
+import {LOCALE_MATCHER, LocaleMatcher} from "../../locale-matcher/locale-matcher";
+import {getOption} from "../../util/get-option";
 
 /**
  * The SupportedLocales abstract operation returns the subset of the provided BCP 47 language priority list
@@ -17,18 +19,26 @@ import {SupportedLocalesOptions} from "./supported-locales-options";
  * @return {Locales}
  */
 export function supportedLocales(availableLocales: Locales, requestedLocales: Locales, options?: SupportedLocalesOptions): Locales {
+	let matcher: LocaleMatcher;
+
 	// If options is not undefined, then
 	if (options !== undefined) {
 		// Let options be ? ToObject(options).
 		options = toObject(options);
+
+		// Let matcher be ? GetOption(options, "localeMatcher", "string", « "lookup", "best fit" », "best fit").
+		matcher = getOption(options, "localeMatcher", "string", LOCALE_MATCHER, "best fit");
 	}
 
-	// If options is not undefined, then Let matcher be ? GetOption(options, "localeMatcher", "string", « "lookup", "best fit" »,  "best fit").
 	// Else, let matcher be "best fit".
-	const matcher = options !== undefined && options.localeMatcher != null ? options.localeMatcher : "best fit";
+	else {
+		matcher = "best fit";
+	}
 
 	// If matcher is "best fit", then let supportedLocales be BestFitSupportedLocales(availableLocales, requestedLocales).
 	// Else let supportedLocales be LookupSupportedLocales(availableLocales, requestedLocales).
 	// Return CreateArrayFromList(supportedLocales).
-	return matcher === "best fit" ? bestFitSupportedLocales(availableLocales, requestedLocales) : lookupSupportedLocales(availableLocales, requestedLocales);
+	return matcher === "best fit"
+		? bestFitSupportedLocales(availableLocales, requestedLocales)
+		: lookupSupportedLocales(availableLocales, requestedLocales);
 }

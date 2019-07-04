@@ -1,31 +1,32 @@
+/// <reference types="../src/typings" />
 import test from "ava";
-import "../src/patch/auto-patch";
-import "../../locale-data/en";
+import "../src/test262";
+import "../locale-data/en";
 
 // tslint:disable
 
 test("Will use the default locale if none is given. #1", t => {
 	const rtf = new Intl.RelativeTimeFormat();
 	const result = rtf.format(-1, "day");
-	t.deepEqual(result, "yesterday");
+	t.deepEqual(result, "1 day ago");
 });
 
 test("Supports the 'day' unit with default options. #1", t => {
 	const rtf = new Intl.RelativeTimeFormat("en");
 	const result = rtf.format(-1, "day");
-	t.deepEqual(result, "yesterday");
+	t.deepEqual(result, "1 day ago");
 });
 
 test("Supports the 'day' unit with default options. #2", t => {
 	const rtf = new Intl.RelativeTimeFormat("en");
 	const result = rtf.format(1, "day");
-	t.deepEqual(result, "tomorrow");
+	t.deepEqual(result, "in 1 day");
 });
 
 test("Supports the 'day' unit with default options. #3", t => {
 	const rtf = new Intl.RelativeTimeFormat("en");
 	const result = rtf.format(0, "day");
-	t.deepEqual(result, "today");
+	t.deepEqual(result, "in 0 days");
 });
 
 test("Supports the 'day' unit with default options. #4", t => {
@@ -43,7 +44,7 @@ test("Understands plural version of units as aliases of the singular ones. #1", 
 test("Supports the 'quarter' unit with style 'short'. #1", t => {
 	const rtf = new Intl.RelativeTimeFormat("en", {style: "short"});
 	const result = rtf.format(1, "quarter");
-	t.deepEqual(result, "next qtr.");
+	t.deepEqual(result, "in 1 qtr.");
 });
 
 test("Supports the 'week' unit with style 'short' and numeric 'always'. #1", t => {
@@ -58,7 +59,7 @@ test("Supports the 'week' unit with style 'short' and numeric 'always'. #1", t =
 test("Supports the 'quarter' unit. #1", t => {
 	const rtf = new Intl.RelativeTimeFormat("en");
 	const result = rtf.format(1, "quarter");
-	t.deepEqual(result, "next quarter");
+	t.deepEqual(result, "in 1 quarter");
 });
 
 test("Supports the 'second' unit. #1", t => {

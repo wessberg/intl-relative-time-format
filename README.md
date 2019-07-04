@@ -33,6 +33,8 @@ This is a 1:1 implementation of the [`Intl.RelativeTimeFormat`](https://github.c
 
 It builds upon other members of the `Intl` family such as `Intl.PluralRules`, `Intl.NumberFormat`, and `Intl.getCanonicalLocales`, so these must be polyfilled. [See this section for an overview](#dependencies--browser-support).
 
+This implementation passes all 150 [Test262 Conformance tests](https://github.com/tc39/test262) from the Official ECMAScript Conformance Test Suite.
+
 <!-- SHADOW_SECTION_FEATURES_START -->
 
 ### Features
@@ -44,6 +46,7 @@ Some highlights of this polyfill include:
 - A very precise implementation of the spec, with cross-references inlined in the source code
 - Conditional loading of Locale data for all CLDR locales
 - Well-tested and well-documented.
+- Passes all Official ECMAScript Conformance Tests
 
 <!-- SHADOW_SECTION_FEATURE_IMAGE_START -->
 

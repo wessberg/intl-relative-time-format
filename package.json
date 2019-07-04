@@ -21,11 +21,12 @@
 		"clean": "npm run clean:dist && npm run clean:compiled",
 		"lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
 		"prettier": "prettier --write '{src,test,documentation}/**/*.{js,ts,json,html,xml,css,md}'",
-		"pretest": "npm run clean:compiled && tsc --module commonjs --target es2017 --sourceMap",
-		"test": "NODE_ENV=TEST ava --fail-fast",
+		"test": "ava",
+		"test262": "node test262-runner.js",
 		"posttest": "npm run clean:compiled",
 		"prebuild": "npm run clean:dist",
 		"build": "npm run rollup",
+		"watch": "npm run rollup -- --watch",
 		"build_data": "cd scripts/build-data && tsc && node compiled/scripts/build-data/build-data.js && rm -rf compiled",
 		"rollup": "rollup -c rollup.config.js",
 		"preversion": "npm run lint && npm run build_data && NODE_ENV=production npm run build",
@@ -60,31 +61,39 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@types/find-up": "^2.1.1",
-		"@wessberg/rollup-plugin-ts": "1.1.28",
-		"@wessberg/scaffold": "1.0.17",
-		"@wessberg/ts-config": "^0.0.39",
-		"ava": "^1.2.1",
-		"cldr": "^4.13.0",
-		"find-up": "^3.0.0",
-		"rollup": "^1.1.2",
-		"rollup-plugin-node-resolve": "^4.0.0",
-		"standard-changelog": "^2.0.6",
-		"javascript-stringify": "^1.6.0",
-		"tslib": "^1.9.3",
-		"tslint": "^5.12.1",
-		"typescript": "^3.3.3",
-		"prettier": "^1.16.4",
-		"pretty-quick": "^1.10.0",
-		"husky": "^1.3.1",
-		"np": "^4.0.2"
+		"@wessberg/rollup-plugin-ts": "1.1.59",
+		"@wessberg/browserslist-generator": "1.0.23",
+		"@wessberg/scaffold": "1.0.19",
+		"@wessberg/ts-config": "^0.0.41",
+		"babel-preset-minify": "0.5.0",
+		"ava": "^2.1.0",
+		"test262-harness": "^6.3.2",
+		"cldr": "^5.3.0",
+		"find-up": "^4.1.0",
+		"rollup": "^1.16.6",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"standard-changelog": "^2.0.11",
+		"javascript-stringify": "^2.0.0",
+		"tslib": "^1.10.0",
+		"tslint": "^5.18.0",
+		"typescript": "^3.5.2",
+		"prettier": "^1.18.2",
+		"pretty-quick": "^1.11.1",
+		"husky": "^3.0.0",
+		"np": "^5.0.3",
+		"ts-node": "8.3.0",
+		"rollup-plugin-multi-entry": "2.1.0",
+		"full-icu": "1.3.0"
 	},
 	"dependencies": {},
+	"test262": "./test262-polyfill.js",
+	"minified": "./dist/index.min.js",
 	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"browser": "./dist/index.js",
+	"module": "./dist/index.esm.js",
+	"browser": "./dist/index.esm.js",
 	"types": "./dist/index.d.ts",
 	"typings": "./dist/index.d.ts",
-	"es2015": "./dist/index.js",
+	"es2015": "./dist/index.esm.js",
 	"engines": {
 		"node": ">=4.0.0"
 	},
@@ -92,5 +101,17 @@
 		"hooks": {
 			"pre-commit": "pretty-quick --staged"
 		}
+	},
+	"ava": {
+		"files": [
+			"test/*.test.ts"
+		],
+		"compileEnhancements": false,
+		"extensions": [
+			"ts"
+		],
+		"require": [
+			"ts-node/register"
+		]
 	}
 }

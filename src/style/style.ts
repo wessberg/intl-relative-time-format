@@ -1,1 +1,5 @@
-export type Style = "long" | "short" | "narrow";
+import {ElementOf} from "../util/element-of";
+
+export const STYLE = ["long", "short", "narrow"] as const;
+
+export type Style = ElementOf<typeof STYLE>;

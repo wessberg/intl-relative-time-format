@@ -1,5 +1,5 @@
 import {SingularRelativeTimeUnit} from "../../unit/singular-relative-time-unit";
-import {Partitions, UnitPartition, UnitPartitions} from "../../partition/partition";
+import {RelativeTimeFormatPart} from "../../relative-time-format-part/relative-time-format-part";
 
 /**
  * The MakePartsList abstract operation is called with arguments pattern,
@@ -8,12 +8,12 @@ import {Partitions, UnitPartition, UnitPartitions} from "../../partition/partiti
  * http://tc39.github.io/proposal-intl-relative-time/#sec-makepartslist
  * @param {string} pattern
  * @param {SingularRelativeTimeUnit} unit
- * @param {Partitions} parts
- * @returns {UnitPartitions}
+ * @param {Intl.NumberFormatPart[]} parts
+ * @returns {RelativeTimeFormatPart}
  */
-export function makePartsList(pattern: string, unit: SingularRelativeTimeUnit, parts: Partitions): UnitPartitions {
+export function makePartsList(pattern: string, unit: SingularRelativeTimeUnit, parts: Intl.NumberFormatPart[]): RelativeTimeFormatPart[] {
 	// Let result be a new empty List.
-	const result: UnitPartition[] = [];
+	const result: RelativeTimeFormatPart[] = [];
 
 	// Let beginIndex be ! Call(%StringProto_indexOf%, pattern, « "{", 0 »).
 	let beginIndex = String.prototype.indexOf.call(pattern, "{", 0);
@@ -61,7 +61,7 @@ export function makePartsList(pattern: string, unit: SingularRelativeTimeUnit, p
 		for (const part of parts) {
 			// Add new part Record { [[Type]]: part.[[Type]], [[Value]]: part.[[Value]], [[Unit]]: unit } as a new element on the List result.
 			if (part.type === "literal") {
-				result.push({...part});
+				result.push({...part, type: part.type});
 			} else {
 				result.push({...part, unit});
 			}

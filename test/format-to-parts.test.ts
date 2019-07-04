@@ -1,6 +1,7 @@
+/// <reference types="../src/typings" />
 import test from "ava";
-import "../src/patch/auto-patch";
-import "../../locale-data/en";
+import "../src/test262";
+import "../locale-data/en";
 
 // tslint:disable
 
@@ -9,8 +10,13 @@ test("Supports the 'day' unit with default options. #1", t => {
 	const result = rtf.formatToParts(-1, "day");
 	t.deepEqual(result, [
 		{
+			type: "integer",
+			value: "1",
+			unit: "day"
+		},
+		{
 			type: "literal",
-			value: "yesterday"
+			value: " day ago"
 		}
 	]);
 });
@@ -21,7 +27,16 @@ test("Supports the 'day' unit with default options. #2", t => {
 	t.deepEqual(result, [
 		{
 			type: "literal",
-			value: "tomorrow"
+			value: "in "
+		},
+		{
+			type: "integer",
+			value: "1",
+			unit: "day"
+		},
+		{
+			type: "literal",
+			value: " day"
 		}
 	]);
 });
@@ -32,7 +47,16 @@ test("Supports the 'day' unit with default options. #3", t => {
 	t.deepEqual(result, [
 		{
 			type: "literal",
-			value: "today"
+			value: "in "
+		},
+		{
+			type: "integer",
+			value: "0",
+			unit: "day"
+		},
+		{
+			type: "literal",
+			value: " days"
 		}
 	]);
 });
@@ -44,7 +68,17 @@ test("Supports the 'day' unit with default options. #4", t => {
 	t.deepEqual(result, [
 		{
 			type: "integer",
-			value: "1.1",
+			value: "1",
+			unit: "day"
+		},
+		{
+			type: "decimal",
+			value: ".",
+			unit: "day"
+		},
+		{
+			type: "fraction",
+			value: "1",
 			unit: "day"
 		},
 		{
@@ -60,7 +94,16 @@ test("Supports the 'quarter' unit with style 'short'. #1", t => {
 	t.deepEqual(result, [
 		{
 			type: "literal",
-			value: "next qtr."
+			value: "in "
+		},
+		{
+			type: "integer",
+			value: "1",
+			unit: "quarter"
+		},
+		{
+			type: "literal",
+			value: " qtr."
 		}
 	]);
 });

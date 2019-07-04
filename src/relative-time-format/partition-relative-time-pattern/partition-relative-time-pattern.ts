@@ -1,11 +1,11 @@
 import {RelativeTimeFormat} from "../relative-time-format/relative-time-format";
 import {RelativeTimeUnit} from "../../unit/relative-time-unit";
 import {ExtendedSingularRelativeTimeUnit, singularRelativeTimeUnit} from "../../unit/singular-relative-time-unit";
-import {UnitPartitions} from "../../partition/partition";
-import {partitionNumberPattern} from "../partition-number-pattern/partition-number-pattern";
 import {getInternalSlot, hasInternalSlot} from "../internal-slot/internal-slot";
 import {resolvePlural} from "../resolve-plural/resolve-plural";
 import {makePartsList} from "../make-parts-list/make-parts-list";
+import {toString} from "../../util/to-string";
+import {RelativeTimeFormatPart} from "../../relative-time-format-part/relative-time-format-part";
 
 /**
  * When the FormatRelativeTime abstract operation is called with arguments relativeTimeFormat,
@@ -14,9 +14,13 @@ import {makePartsList} from "../make-parts-list/make-parts-list";
  * @param {RelativeTimeFormat} relativeTimeFormat
  * @param {number} value
  * @param {RelativeTimeUnit} unit
- * @returns {UnitPartitions}
+ * @returns {RelativeTimeFormatPart[]}
  */
-export function partitionRelativeTimePattern(relativeTimeFormat: RelativeTimeFormat, value: number, unit: RelativeTimeUnit): UnitPartitions {
+export function partitionRelativeTimePattern(
+	relativeTimeFormat: RelativeTimeFormat,
+	value: number,
+	unit: RelativeTimeUnit
+): RelativeTimeFormatPart[] {
 	// Assert: relativeTimeFormat has an [[InitializedRelativeTimeFormat]] internal slot.
 	if (!hasInternalSlot(relativeTimeFormat, "initializedRelativeTimeFormat")) {
 		throw new TypeError(`Internal function called on incompatible receiver ${relativeTimeFormat.toString()}`);
@@ -48,7 +52,12 @@ export function partitionRelativeTimePattern(relativeTimeFormat: RelativeTimeFor
 	// If style is equal to "short", then let entry be the string-concatenation of unit and "-short".
 	// Else if style is equal to "narrow", then let entry be the string-concatenation of unit and "-narrow".
 	// Else let entry be unit.
-	let entry = style === "short" ? (`${unit}-short` as ExtendedSingularRelativeTimeUnit) : style === "narrow" ? (`${unit}-narrow` as ExtendedSingularRelativeTimeUnit) : unit;
+	let entry =
+		style === "short"
+			? (`${unit}-short` as ExtendedSingularRelativeTimeUnit)
+			: style === "narrow"
+			? (`${unit}-narrow` as ExtendedSingularRelativeTimeUnit)
+			: unit;
 
 	// Let exists be ! HasProperty(fields, entry).
 	let exists = entry in fields;
@@ -73,12 +82,12 @@ export function partitionRelativeTimePattern(relativeTimeFormat: RelativeTimeFor
 	// If numeric is equal to "auto", then
 	if (numeric === "auto") {
 		// Let exists be ! HasProperty(patterns, ! ToString(value)).
-		exists = String(value) in patterns;
+		exists = toString(value) in patterns;
 
 		// If exists is true, then
 		if (exists) {
 			// Let result be ! Get(patterns, ! ToString(value)).
-			const result = patterns[String(value)];
+			const result = patterns[toString(value)];
 
 			// Return a List containing the Record { [[Type]]: "literal", [[Value]]: result }.
 			return [
@@ -98,7 +107,7 @@ export function partitionRelativeTimePattern(relativeTimeFormat: RelativeTimeFor
 	const po = patterns[tl];
 
 	// Let fv be ! PartitionNumberPattern(relativeTimeFormat.[[NumberFormat]], value).
-	const fv = partitionNumberPattern(relativeTimeFormat, value);
+	const fv = getInternalSlot(relativeTimeFormat, "numberFormat").formatToParts(Math.abs(value));
 
 	// Let pr be ! ResolvePlural(relativeTimeFormat.[[PluralRules]], value).
 	const pr = resolvePlural(relativeTimeFormat, value);

@@ -38,10 +38,14 @@ export const RELATIVE_TIME_FORMAT_STATIC_INTERNALS: RelativeTimeFormatStaticInte
  * @param {T} property
  * @param {RelativeTimeFormatInstanceInternals[T]} value
  */
-export function setInternalSlot<T extends keyof RelativeTimeFormatInstanceInternals>(instance: RelativeTimeFormat, property: T, value: RelativeTimeFormatInstanceInternals[T]): void {
+export function setInternalSlot<T extends keyof RelativeTimeFormatInstanceInternals>(
+	instance: RelativeTimeFormat,
+	property: T,
+	value: RelativeTimeFormatInstanceInternals[T]
+): void {
 	let record = RELATIVE_TIME_FORMAT_INSTANCE_INTERNAL_MAP.get(instance);
 	if (record == null) {
-		record = {} as RelativeTimeFormatInstanceInternals;
+		record = Object.create(null) as RelativeTimeFormatInstanceInternals;
 		RELATIVE_TIME_FORMAT_INSTANCE_INTERNAL_MAP.set(instance, record);
 	}
 
@@ -55,7 +59,10 @@ export function setInternalSlot<T extends keyof RelativeTimeFormatInstanceIntern
  * @param {T} property
  * @return {RelativeTimeFormatInstanceInternals[T]}
  */
-export function getInternalSlot<T extends keyof RelativeTimeFormatInstanceInternals>(instance: RelativeTimeFormat, property: T): RelativeTimeFormatInstanceInternals[T] {
+export function getInternalSlot<T extends keyof RelativeTimeFormatInstanceInternals>(
+	instance: RelativeTimeFormat,
+	property: T
+): RelativeTimeFormatInstanceInternals[T] {
 	const record = RELATIVE_TIME_FORMAT_INSTANCE_INTERNAL_MAP.get(instance);
 	if (record == null) {
 		throw new ReferenceError(`No internal slots has been allocated for the given instance of RelativeTimeFormat`);

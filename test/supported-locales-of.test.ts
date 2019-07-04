@@ -1,6 +1,7 @@
+/// <reference types="../src/typings" />
 import test from "ava";
-import "../src/patch/auto-patch";
-import "../../locale-data/en";
+import "../src/test262";
+import "../locale-data/en";
 
 // tslint:disable
 

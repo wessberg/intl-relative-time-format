@@ -1,12 +1,12 @@
 // @ts-ignore
-import {extractCurrencyInfoById, extractDefaultNumberSystemId, extractFields, extractNumberSymbols, extractPluralRuleFunction, localeIds, numberSystemIds} from "cldr";
+import {extractDefaultNumberSystemId, extractFields, localeIds} from "cldr";
 import {sync} from "find-up";
 import {dirname, join} from "path";
 import {existsSync, mkdirSync} from "fs";
 import {createProgramFromSources, SourceFileInput} from "./ts/create-program-from-sources";
 import {ExtendedSingularRelativeTimeUnit, VALID_EXTENDED_SINGULAR_RELATIVE_TIME_UNIT_VALUES} from "../../src/unit/singular-relative-time-unit";
 import {LocaleDataEntry, LocaleDataEntryValue} from "../../src/locale/locale-data";
-import stringify from "javascript-stringify";
+import {stringify} from "javascript-stringify";
 
 // The directory on disk to write locale files to
 const OUTPUT_DIRECTORY = join(dirname(sync("package.json")!), "locale-data");
@@ -28,19 +28,19 @@ for (const localeId of localeIds) {
 	const nu = [extractDefaultNumberSystemId(localeId)];
 
 	// Prepare relative time formatting data for the locale
-	const relativeTimeLocaleData = {} as { [Key in ExtendedSingularRelativeTimeUnit]: LocaleDataEntryValue|undefined };
+	const relativeTimeLocaleData = {} as {[Key in ExtendedSingularRelativeTimeUnit]: LocaleDataEntryValue | undefined};
 
 	const fields = extractFields(localeId);
 
-	for (const [key, fieldEntry] of Object.entries(fields) as [ExtendedSingularRelativeTimeUnit, { relative?: { [key: string]: string }; relativeTime?: { future: Record<string, string>; past: Record<string, string> } }][]) {
+	for (const [key, fieldEntry] of Object.entries(fields) as [
+		ExtendedSingularRelativeTimeUnit,
+		{relative?: {[key: string]: string}; relativeTime?: {future: Record<string, string>; past: Record<string, string>}}
+	][]) {
 		if (fieldEntry.relativeTime == null || !VALID_EXTENDED_SINGULAR_RELATIVE_TIME_UNIT_VALUES.includes(key)) continue;
 
 		// @ts-ignore
 		relativeTimeLocaleData[key] = {
-			...(fieldEntry.relative != null
-					? fieldEntry.relative
-					: {}
-			),
+			...(fieldEntry.relative != null ? fieldEntry.relative : {}),
 			future: fieldEntry.relativeTime.future,
 			past: fieldEntry.relativeTime.past
 		};

@@ -22,25 +22,16 @@ declare namespace Intl {
 		localeMatcher: LocaleMatcher;
 	}
 
-	export interface PartitionBase {
-		value: string;
-	}
-
-	export interface UnitPartitionBase extends PartitionBase {
+	interface RelativeTimeFormatNonLiteralPart extends Intl.NumberFormatPart {
+		type: "currency" | "decimal" | "fraction" | "group" | "infinity" | "integer" | "minusSign" | "nan" | "plusSign" | "percentSign";
 		unit: SingularRelativeTimeUnit;
 	}
 
-	export interface LiteralPartition extends PartitionBase {
+	interface RelativeTimeFormatLiteralPart extends Intl.NumberFormatPart {
 		type: "literal";
 	}
 
-	export interface UnitIntegerPartition extends UnitPartitionBase {
-		type: "integer";
-	}
-
-	export type UnitPartition = LiteralPartition | UnitIntegerPartition;
-
-	export type UnitPartitions = ReadonlyArray<UnitPartition>;
+	type RelativeTimeFormatPart = RelativeTimeFormatNonLiteralPart | RelativeTimeFormatLiteralPart;
 
 	type RelativeTimeUnit = SingularRelativeTimeUnit | "seconds" | "minutes" | "hours" | "days" | "weeks" | "months" | "quarters" | "years";
 
@@ -51,15 +42,13 @@ declare namespace Intl {
 	}
 
 	class RelativeTimeFormat {
-		public [Symbol.toStringTag] = "Intl.RelativeTimeFormat";
-
 		constructor(locales?: Locale | Locales | undefined, options?: Partial<RelativeTimeFormatOptions>);
 
 		public static supportedLocalesOf(locales: Locale | Locales, options?: SupportedLocalesOptions | undefined): Locales;
 
 		public format(value: number, unit: RelativeTimeUnit): string;
 
-		public formatToParts(value: number, unit: RelativeTimeUnit): UnitPartitions;
+		public formatToParts(value: number, unit: RelativeTimeUnit): RelativeTimeFormatPart[];
 
 		public resolvedOptions(): ResolvedRelativeTimeFormatOptions;
 	}
